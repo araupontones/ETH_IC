@@ -3,7 +3,8 @@
 #lLOAD LIBRARIES ----------------------------------------------------------------
   library(pacman)
   
-  p_load(tidyverse, sf, httr, rio)
+  p_load(tidyverse, sf, httr, rio, fuzzyjoin, stringdist)
+
 
 
 #DEFINE PATHS-- ----------------------------------------------------------------
@@ -17,6 +18,8 @@
       
       dir_data_reference_downloads = file.path(dir_data_reference, "0.downloads")  
       dir_data_reference_raw = file.path(dir_data_reference, "1.raw")  
+      dir_data_reference_lkups = file.path(dir_data_reference, "2.look_ups")  
+      
       dir_data_reference_cleanINT = file.path(dir_data_reference, "2.clean_intermediate")  
       dir_data_reference_clean = file.path(dir_data_reference, "3.clean")  
       

@@ -8,19 +8,21 @@ dir_kebeles_download = file.path(dir_data_reference_downloads, "Kebeles_populati
 #lisf of all pdf files
 #list.files(dir_kebeles_download)
 
+#extract_areas(file.path(dir_data_reference_downloads, "Kebeles_population", "Oromiya.pdf"), 985)
+#tabulizer::locate_areas(file.path(dir_data_reference_downloads, "Kebeles_population", "Oromiya.pdf"), 985)
 
 #define pages where the tables are located in each file
 #Note: Dire Wara and Harari have a different format (we'd need to extract them separately)
-pages_with_tables = list(Addis_Ababa= c(172,173),
-                         Affar = c(333:338) ,
-                         Amhara = c(313:321),
-                         Benishangu_Gumuz =c(284:290) ,
+pages_with_tables = list(#Addis_Ababa= c(172,173),
+                         #Affar = c(333:338) ,
+                         #Amhara = c(313:321),
+                         #Benishangu_Gumuz =c(284:290) ,
                          #Dire_Dawa = c(136,136), #check thisone has a diff format
-                         Gambella = c(252:255),
+                         #Gambella = c(252:255),
                          #Harari = c(137, 137) , #also different
                          #National = ,
-                         Oromiya = c(985:1074)
-                         #SNNPR = ,
+                         Oromiya = c(985:1074),
+                         SNNPR = c(373:380)
                          #Somali = ,
                          #Tigray
                          
@@ -36,7 +38,7 @@ list_of_tables = map(list.files(dir_kebeles_download), function(region){
   #print(region_name)
   
   #skip file with these names
-  if(!region_name %in% c("National", "SNNPR", "Somali", "Tigray", "Dire_Dawa", "Harari")){
+  if(region_name %in% c("SNNPR", "Oromiya")){
     
     print(region_name)
     
@@ -50,7 +52,8 @@ list_of_tables = map(list.files(dir_kebeles_download), function(region){
     #read table
     table_list = extract_tables(pdf_raw,
                                 pages = pages,
-                                area = list(c(100.05882,  14.98522, 741.23327, 558.12116)),
+                                #area = list(c(100.05882,  14.98522, 741.23327, 558.12116)),
+                                area = list(c(94.23915,  23.77084, 807.16390, 569.53711)),
                                 #output = "data.frame",
                                 method = "decide"
     )
@@ -69,12 +72,14 @@ list_of_tables = map(list.files(dir_kebeles_download), function(region){
   
   
 })
-  
+
+
+
 #append tables and export to raw data
 raw_data = do.call(rbind, list_of_tables)
 names(raw_data)<- c("Kebele", "Population", "Male", "Female", "Number of households", "Number of household units", "Region")
 
-export(raw_data, file.path(dir_data_reference_raw, "Kebele_population_raw.rds"))
+export(raw_data, file.path(dir_data_reference_raw, "Kebele_population_SNNPR_Oromiya_raw.rds"))
 
 
 

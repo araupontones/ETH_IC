@@ -5,11 +5,12 @@ source("set_up.R")
 
 centroids_raw = import(file.path(dir_data_reference_raw, "kebele_centroids_raw.rds"))
 
-
+#filter(R_NAME %in% c("SNNP","Oromiya" ))
 #Clean ID variables of Centroids -------------------------------------------------------------
-
+names(centroids_names)
 centroids_names = centroids_raw %>%
-  mutate(R_NAME = str_remove_all(R_NAME, "_"),
+
+mutate(R_NAME = str_remove_all(R_NAME, "_"),
          R_NAME = str_to_title(R_NAME),
          R_NAME = str_replace(R_NAME, "  ", " "),
          R_NAME = str_replace(R_NAME, "Amahara", "Amhara"),
