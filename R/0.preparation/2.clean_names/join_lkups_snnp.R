@@ -123,10 +123,12 @@ field_joint = field %>%
          ) %>%
   select(-c(merge_2, merge_, Name_field)) %>%
   rename(merge_ = merge_3) %>%
-  relocate(merge_, c(Region, Zone, Wereda, Kebele),c(ends_with("census")) )
+  relocate(merge_, c(Region, Zone, Wereda, Kebele),c(ends_with("census")) ) 
   
 
 export(field_joint, file.path(dir_data_reference_clean, "treated_snnp_merge_status.xlsx"))
 
 
 
+
+table(field_joint$merge_)

@@ -7,7 +7,7 @@ source("functions/to_create_lookups.R")
 
 
 #define paths ------------------------------------------------------------
-file = file.path(dir_data_reference_raw, "Targeted CC Oromia.xlsx")
+file = file.path(dir_data_reference_raw, "Targeted CC Oromia_17.02.xlsx")
 sheets = excel_sheets(file)
 
 
@@ -73,6 +73,15 @@ raw_geo = data_raw %>%
          Wereda = str_replace(Wereda, "chiro", "chiro zuria"),
          Wereda = str_replace(Wereda, "d/lebu", "daro lebu"),
          Wereda = str_replace(Wereda, "g/koricha", "guba qoricha"),
+         Wereda = str_replace(Wereda, "gursuum", "gursum"),
+         Wereda = str_replace(Wereda, "dadar", "deder"),
+         Wereda = str_replace(Wereda, "fadiis", "fedis"),
+         Wereda = str_replace(Wereda, "hetosa", "hitosa"),
+         Wereda = str_replace(Wereda, "m/tola", "midega tola"),
+         Wereda = str_replace(Wereda, "meeta", "meta"),
+         Wereda = str_replace(Wereda, "nagele", "arsi negele"),
+         
+         
          
          #Kebeleles
          

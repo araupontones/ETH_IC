@@ -7,7 +7,7 @@ source("functions/to_create_lookups.R")
 
 #import data
 raw = import(file.path(dir_data_reference_raw, 
-                       "Copy of Targeted CC Kebele's & Information collected  - SNNPR24131.xlsx"),
+                       "SNNP_17.02.xlsx"),
              range = "A8:J364",
              col_names = c("Region", "Zone", "Wereda", "mig_10", "mig_11", "mig_13", 
                            "Total", "unemployment", "returnees", "Remark")
@@ -32,7 +32,22 @@ raw_geo = raw %>%
   mutate_at(vars(Region, Zone, Wereda, Kebele), str_trim) %>%
   mutate_at(vars(Region, Zone, Wereda, Kebele), str_to_lower) %>%
   relocate(c(Region, Zone, Wereda, Kebele)) %>%
-  mutate(Region = str_replace(Region, "snnpr", "snnp"))
+  mutate(Region = str_replace(Region, "snnpr", "snnp"),
+         Kebele = str_replace(Kebele,"ho/kuke","holugeb kuke"),
+         Kebele = str_replace(Kebele,"ta/bedene","tachegnawo bedane"),
+         Kebele = str_replace(Kebele,"la/bedene","laygnawo bedane"),
+         Kebele = str_replace(Kebele,"mekala ha","huletegna mekala"),
+         Kebele = str_replace(Kebele,"la/lenda","layegnawo lenda"),
+         Kebele = str_replace(Kebele,"la/lenda","layegnawo lenda"),
+         Kebele = str_replace(Kebele,"kanase","kanosi"),
+         Kebele = str_replace(Kebele,"go/bete","gonichebete")
+         
+         
+         
+         
+         
+         
+  )
 
 
   

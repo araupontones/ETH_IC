@@ -54,14 +54,16 @@ weredas = wereda_field %>%
   select(-c(Zone_census, merge_zone)) 
 
 
+
+
 fuzzy_join_weredas = my_fuzzy(left_data = weredas, 
             right_data= wereda_census %>% mutate(to_join = paste(Region, Zone, Wereda, sep = "-")), 
             by = "to_join",
             match_fun = is_name_distance_jw.5 ) %>%
 #calculate the distance
   mutate(distance = stringdist(to_join_field, to_join_census, method = "jw")) %>%
-  relocate(starts_with("Wereda"), distance) %>%
-  group_by(Wereda_field) %>%
+  relocate(starts_with("Wereda"), distance, starts_with("to_join")) %>%
+  group_by(to_join_field) %>%
   #keep the lower distance
   filter(distance == min(distance)) %>%
   ungroup() %>%
@@ -134,10 +136,18 @@ field_joint = field %>%
 
 export(field_joint, file.path(dir_data_reference_clean, "treated_oromiya_merge_status.xlsx"))
 
+table(field_joint$merge_)
 
-
-field_joint %>%
+check = field_joint %>%
+  group_by(Zone, Wereda) %>%
+  slice(1) %>%
   select(Zone, Wereda, merge_) %>%
   arrange(Zone, Wereda) %>%
-  filter(merge_== "Wereda not in census")
+  mutate(Wereda_census="") %>%
+  filter(merge_== "Wereda not in census") %>%
+  export(file.path(dir_data_reference_clean, "not_found_woredas_oromiya.xlsx"))
+
+ wereda_census %>%
+   filter(Zone %in% c("arsi", "east hararge","jimma","west arsi")) %>%
+   export(file.path(dir_data_reference_clean, "census_woredas_oromiya.xlsx"))
  
