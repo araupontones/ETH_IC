@@ -1,0 +1,86 @@
+:root {
+  --blue_IOM: #002B82;
+    --guinda_INS: #AC1039;
+    --blue_opm: #0B1F51;
+    --color_caption: #777;
+    --blue_low: #D9E0F1;
+    --blue_light_IOM: #418fde;
+    --blue_light_high: #84aeec;
+    --blue_light_low: #E6EFFB;
+    --blue_lightest:#E9EBF6;
+    --yellow_IOM: #FFB81C;
+    --size_h1:24pt;
+  --size_h2:20pt;
+  --size_h3:18pt;
+  --size_p:12pt;
+}
+
+
+
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+  /*text-align: left;*/
+    line-height: 1.6;
+  
+}
+
+.book-summary{
+  font-family: 'Montserrat', sans-serif !important;
+  
+}
+
+/*width of content*/
+  .page-inner{
+    
+    max-width: 1200px !important;
+  }
+
+/*font style*/
+  
+  
+  
+  h1, h2, h3, h4, h5 {
+    
+    font-family: 'Montserrat', sans-serif !important;
+    border-bottom: none !Important;
+    color: var(--blue_IOM) !important;
+  }
+
+p{
+  
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  
+}
+
+/*table style*/
+  
+  table {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+    
+    tr:hover {background-color: #ddd;}
+        
+        th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: center;
+          background-color: var(--blue_IOM) !important;
+          color: white;
+        }
+      
+      caption,.caption{
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: var(--guinda_INS) !important;
+        text-align: left !important;
+      }

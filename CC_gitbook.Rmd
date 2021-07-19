@@ -1,0 +1,87 @@
+---
+title: "Documentation of Household Survey to assess CC in Ethiopia"
+author: "GMDAC"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  bookdown::gitbook:
+   split_by: none
+   self_contained: true
+   css: "style_gitbook.css"
+   toc_depth: 6
+   
+---
+
+<head>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital&display=swap');
+
+</style>
+</head>
+
+```{r include = F}
+  knitr::opts_chunk$set(echo = F, warning = F, message = F)
+  
+library(dlookr)
+
+
+
+kebeles_admin <- rio::import(file.path(dir_reference_clean, "kebeles_cc.rds"))
+```
+
+# Introduction
+
+This gitbook intends to document all the steps taken for the implementation of the Community Conversation Household Survey (CCHS) in Ethiopia. 
+
+
+# List of CC Kebeles
+
+_this data is cleaned in R/0.preparation/1.sample_
+
+On May 2021, GMDAC shared with CSA a list of the all the kebeles where the CC has been implemented The objective was for CSA to match these kebeles with official data so a sampling frame could be created.
+
+On July 17th 2021, CSA shared a clean list of the Kebeles where the CC has been implemented (sent by Daniel Nigatu). This list has been merged with oficial data (**add source here**) for the evaluation to be have a sampling frame. The list includes `r nrow(kebeles_admin)` kebeles. \@ref(tab:kebeles-zone) describes the number of kebeles by zone.
+
+```{r kebeles-zone}
+
+
+#Number of kebeles per zone
+zones <- kebeles_admin %>% 
+  tabyl(region, zone) %>%
+  pivot_longer(-region,
+               names_to = "zone",
+               values_to = "obs") %>%
+  filter(obs > 1)
+
+
+knitr::kable(zones, caption = "Number of Kebeles where the CC has been implemented, by region and zone")
+
+```
+
+
+
+This list contains the following variables
+
+```{r echo = TRUE}
+
+
+names(kebeles_admin)
+
+```
+
+
+## Questions to CSA
+
+* is it correct to create a unique identifier based on: paste0(r_code, z_code, w_code,t_code, k_code)?
+* Do the kebeles have an official ID already?
+* Which official data was used for this merge?
+* After merging with the official data, how many "control" kebeles are there by region?
+* is there a shapefile of the kebeles that we can use to map these kebeles? 
+
+
+# Sample frame
+
+The list of "treated" kebeles will be merged with the official data. All the Kebeles in which the CC has not been implemented, in the target zones, will be considered in the sample frame. Thus, a variable "intervention" will be creted at this stage.
