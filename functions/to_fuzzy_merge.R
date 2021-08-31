@@ -32,6 +32,10 @@ is_name_distance_jacard_3 <- function(left, right) {
   stringdist(left, right, method = "jaccard") < .3
 }
 
+is_name_distance_jacard_5 <- function(left, right) {
+  stringdist(left, right, method = "jaccard") < .5
+}
+
 is_name_distance_jacard_4 <- function(left, right) {
   stringdist(left, right, method = "jaccard") < .4
 }
